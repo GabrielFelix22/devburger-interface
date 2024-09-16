@@ -93,4 +93,11 @@ export const InputContainer = styled.div `
         font-weight: 600;
         color: #fff;
     }
+
+    p {
+        color: #FF5C61;
+        font-size: 14px;
+        text-align: center;
+        height: 10px;
+    }
 `;
