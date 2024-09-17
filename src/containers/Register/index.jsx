@@ -43,23 +43,30 @@ export function Register() {
         resolver: yupResolver(schema),
     });
 
-    console.log(errors);
-
     const onSubmit = async (data) => {
-        const response = await toast.promise(
-            api.post('/users', {
+
+        try {
+            const { status } = await api.post('/users', {
                 name: data.name,
                 email: data.email,
                 password: data.password,
-            }),
-            {
-                pending: 'Verificando seus dados',
-                success: 'Cadastro efetuado com Sucesso! 👌',
-                error: 'Ops, algo deu errado! Tente novamente. 🤯'
             },
-        );
+                {
+                    validateStatus: () => true,
+                },
+            );
 
-        console.log(response);
+            if (status === 200 || status === 201) {
+                toast.success('Conta criada com sucesso!');
+            } else if (status === 400) {
+                toast.error('E-mail já cadastrado! Faça o login para continuar');
+            } else {
+                throw new Error();
+            }
+
+        } catch (error) {
+            toast.error('😭 Fala no Sistema! Tente novamente');
+        }
     };
 
     return (
