@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { api } from '../../services/api';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 import Logo from '../../assets/logo-login.svg';
 import { Button } from '../../components/Button';
@@ -12,9 +13,11 @@ import {
     InputContainer,
     LeftContainer,
     RightContainer,
-    Title
+    Title,
+    Link,
 } from './styles';
 export function Login() {
+    const navigate = useNavigate();
     const schema = yup
         .object({
             email: yup
@@ -46,8 +49,15 @@ export function Login() {
             }),
             {
                 pending: 'Verificando seus dados',
-                success: 'Seja bem-vindo(a) 👌',
-                error: 'Email ou Senha Incorretos 🤯'
+                success: {
+                    render() {
+                        setTimeout(() => {
+                            navigate('/');
+                        }, 2000);
+                        return 'Seja bem-vindo(a) 👌';
+                    },
+                },
+                error: 'Email ou Senha Incorretos 🤯',
             },
         );
 
@@ -80,7 +90,7 @@ export function Login() {
                     <Button type="submit">Entrar</Button>
                 </Form>
                 <p>
-                    Não possui uma conta? <a>Cadastre-se.</a>
+                    Não possui uma conta? <Link to="/cadastro">Cadastre-se.</Link>
                 </p>
             </RightContainer>
         </Container>

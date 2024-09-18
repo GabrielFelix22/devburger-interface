@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { api } from '../../services/api';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 import Logo from '../../assets/logo-login.svg';
 import { Button } from '../../components/Button';
@@ -12,9 +13,12 @@ import {
     InputContainer,
     LeftContainer,
     RightContainer,
-    Title
+    Title,
+    Link,
 } from './styles';
 export function Register() {
+    const navigate = useNavigate();
+
     const schema = yup
         .object({
             name: yup
@@ -57,6 +61,9 @@ export function Register() {
             );
 
             if (status === 200 || status === 201) {
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
                 toast.success('Conta criada com sucesso!');
             } else if (status === 400) {
                 toast.error('E-mail já cadastrado! Faça o login para continuar');
@@ -106,7 +113,7 @@ export function Register() {
                     <Button type="submit">Criar Conta</Button>
                 </Form>
                 <p>
-                    Já possui uma conta ? <a>Clique aqui.</a>
+                    Já possui uma conta ? <Link to="/login">Clique aqui.</Link>
                 </p>
             </RightContainer>
         </Container>
