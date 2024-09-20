@@ -10,6 +10,16 @@ export const Container = styled.div `
         overflow: visible;
     }
 
+    .react-multiple-carousel__arrow--left {
+        left: 15px;
+        top: 10px;
+    }
+
+    .react-multiple-carousel__arrow--right {
+        right: 55px;
+        top: 10px;
+    }
+
     padding-left: 50px;
     padding-bottom: 40px;
 `;
