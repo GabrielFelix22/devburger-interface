@@ -4,7 +4,7 @@ import Background from '../../assets/background.svg';
 import BannerHamburger from '../../assets/banner-cardapio.svg';
 import { Link } from 'react-router-dom';
 
-export const Container = styled.div `
+export const Container = styled.div`
     width: 100%;
     min-height: 100vh;
     background-color: #f0f0f0;
@@ -16,7 +16,7 @@ export const Container = styled.div `
     url('${Background}');
 `;
 
-export const Banner = styled.div `
+export const Banner = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,14 +46,14 @@ export const Banner = styled.div `
     }
 `;
 
-export const CategoryMenu = styled.div `
+export const CategoryMenu = styled.div`
     display: flex;
     justify-content: center;
     gap: 50px;
     margin-top: 30px;
 `;
 
-export const CategoryButton = styled(Link) `
+export const CategoryButton = styled(Link)`
     text-decoration: none;
     cursor: pointer;
     background: none;
@@ -63,10 +63,10 @@ export const CategoryButton = styled(Link) `
     padding-bottom: 5px;
     line-height: 20px;
     border: none;
-    border-bottom: ${ (props) => props.$isActiveCategory && '3px solid #9758a6'};
+    border-bottom: ${(props) => props.$isActiveCategory && '3px solid #9758a6'};
 `;
 
-export const ProductsContainer = styled.div `
+export const ProductsContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 40px;
@@ -74,4 +74,18 @@ export const ProductsContainer = styled.div `
     justify-content: center;
     max-width: 1280px;
     margin: 50px auto;
+`;
+
+export const BackButton = styled(Link)`
+    color: #9758a6;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    /* line-height: 14px; */
+    text-decoration: none;
+    margin-bottom: 20px;
+    display: block; /* Isso permite centralizar o botão como um bloco */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 `;

@@ -8,17 +8,30 @@ import {
     Banner,
     CategoryMenu,
     ProductsContainer,
-    CategoryButton
+    CategoryButton,
+    BackButton,
 } from './styles';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export function Menu() {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
-    const [activeCategory, setActiveCategory] = useState(0)
 
     const navigate = useNavigate();
+
+    const { search } = useLocation();
+
+    const queryParms = new URLSearchParams(search);
+
+    const [activeCategory, setActiveCategory] = useState(() => {
+        const categoryId = +queryParms.get('categoria');
+
+        if (categoryId) {
+            return categoryId;
+        }
+        return 0;
+    });
 
     useEffect(() => {
         async function loadCategories() {
@@ -46,7 +59,7 @@ export function Menu() {
     }, []);
 
     useEffect(() => {
-        if(activeCategory === 0) {
+        if (activeCategory === 0) {
             setFilteredProducts(products);
         } else {
             const newFilteredProducts = products.filter(
@@ -68,6 +81,7 @@ export function Menu() {
                     <span>Esse cardápio está irresistível!</span>
                 </h1>
             </Banner>
+
             <CategoryMenu>
                 {categories.map(category => (
                     <CategoryButton
@@ -95,6 +109,11 @@ export function Menu() {
                     <CardProduct product={product} key={product.id} />
                 ))}
             </ProductsContainer>
+            <BackButton 
+            onClick={() => 
+            navigate('/')}>
+                &lt; Voltar 
+            </BackButton>
         </Container>
     );
 }
