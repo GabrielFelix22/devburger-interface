@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { formatPrice } from '../../utils/formatPrice';
 import { CardProduct } from '../../components/CardProduct';
+import { BackButton } from '../../components/BackButton';
 import {
     Container,
     Banner,
     CategoryMenu,
     ProductsContainer,
     CategoryButton,
-    BackButton,
 } from './styles';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -109,11 +109,7 @@ export function Menu() {
                     <CardProduct product={product} key={product.id} />
                 ))}
             </ProductsContainer>
-            <BackButton 
-            onClick={() => 
-            navigate('/')}>
-                &lt; Voltar 
-            </BackButton>
+            <BackButton onClick={() => navigate('/')}> &lt; Voltar</BackButton>
         </Container>
     );
 }
