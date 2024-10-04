@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { api } from '../../services/api';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../hooks/UserContext';
 
 import Logo from '../../assets/logo-login.svg';
 import { Button } from '../../components/Button';
@@ -18,6 +19,8 @@ import {
 } from './styles';
 export function Login() {
     const navigate = useNavigate();
+    const { putUserData } = useUser();
+
     const schema = yup
         .object({
             email: yup
@@ -39,10 +42,8 @@ export function Login() {
         resolver: yupResolver(schema),
     });
 
-    console.log(errors);
-
     const onSubmit = async (data) => {
-        const { data: { token } } = await toast.promise(
+        const { data: userData } = await toast.promise(
             api.post('/session', {
                 email: data.email,
                 password: data.password,
@@ -61,7 +62,7 @@ export function Login() {
             },
         );
 
-        localStorage.setItem('token', token);
+        putUserData(userData);
     };
 
     return (
