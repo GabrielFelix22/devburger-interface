@@ -1,6 +1,6 @@
-import { UserCircle, ShoppingCart } from "@phosphor-icons/react";
-import { useNavigate, useResolvedPath } from "react-router-dom";
-import { useUser } from "../../hooks/UserContext";
+import { UserCircle, ShoppingCart } from '@phosphor-icons/react';
+import { useNavigate, useResolvedPath } from 'react-router-dom';
+import { useUser } from '../../hooks/UserContext';
 
 import {
     Container,

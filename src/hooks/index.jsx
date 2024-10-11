@@ -1,5 +1,5 @@
-import { CartProvider } from "./CartContext";
-import { UserProvider } from "./UserContext";
+import { CartProvider } from './CartContext';
+import { UserProvider } from './UserContext';
 
 const AppProvider = ({ children }) => {
     return (
