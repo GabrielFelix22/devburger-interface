@@ -8,8 +8,16 @@
     height: 100vh;
     width: 100vw;
   }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+  }
   
-  form {
+  #payment-form {
     width: 30vw;
     min-width: 500px;
     align-self: center;
@@ -17,8 +25,7 @@
       0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
     border-radius: 7px;
     padding: 40px;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-bottom: 30px;
   }
   
   
@@ -35,7 +42,7 @@
   }
   
   /* Buttons and links */
-  button {
+  .button {
     background: #0055DE;
     font-family: Arial, sans-serif;
     color: #ffffff;
@@ -51,13 +58,17 @@
     width: 100%;
   }
   
-  button:hover {
+  .button:hover {
     filter: contrast(115%);
   }
   
-  button:disabled {
+  .button:disabled {
     opacity: 0.5;
     cursor: default;
+  }
+
+  .status-title {
+    text-align: center;
   }
   
   /* spinner/processing state, errors */
@@ -121,6 +132,7 @@
     min-width: 500px;
     line-height: 20px;
     margin-bottom: 20px;
+    text-align: center;
   }
   
   #dpm-integration-checker {
@@ -158,20 +170,14 @@
     border-radius: 50%;
   }
   
-  h2 {
-    margin: 0;
-    color: #30313D;
-    text-align: center;
-  }
-  
-  a {
+  #dpm-integration-checker {
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
     font-family: Arial, sans-serif;
     display: block;
   }
-  a:hover {
+  #dpm-integration-checker:hover {
     filter: contrast(120%);
   }
   
@@ -211,6 +217,7 @@
   }
   
   #retry-button {
+    text-decoration: none;
     text-align: center;
     background: #0055DE;
     color: #ffffff;
