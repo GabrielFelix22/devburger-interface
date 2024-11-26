@@ -26,4 +26,5 @@ export const Container = styled.section `
     ),
     url('${Background}');
     height: 890px;
+    overflow-y: hidden;
 `;
