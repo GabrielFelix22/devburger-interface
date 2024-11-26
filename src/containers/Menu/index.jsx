@@ -4,6 +4,7 @@ import { api } from '../../services/api';
 import { formatPrice } from '../../utils/formatPrice';
 import { CardProduct } from '../../components/CardProduct';
 import { BackButton } from '../../components/BackButton';
+import { Footer } from '../../components/Footer';
 import {
     Container,
     Banner,
@@ -110,6 +111,7 @@ export function Menu() {
                 ))}
             </ProductsContainer>
             <BackButton onClick={() => navigate('/')}> &lt; Voltar</BackButton>
+            <Footer />
         </Container>
     );
 }
