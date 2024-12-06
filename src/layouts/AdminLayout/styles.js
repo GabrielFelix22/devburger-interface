@@ -10,7 +10,7 @@ export const Container = styled.div`
         flex: 1;
         width: 100%;
         height: 100vh;
-        background-color: ${props => props.theme.green};
+        background-color: ${props => props.theme.secondWhite};
         overflow-y: auto;
     }
 

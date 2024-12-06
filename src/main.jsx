@@ -13,7 +13,7 @@ import { standardTheme } from './styles/themes/standard';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ThemeProvider theme={{ standardTheme }}>
+    <ThemeProvider theme={standardTheme}>
       <AppProvider>
         <Elements stripe={stripePromise}>
           <BrowserRouter>
