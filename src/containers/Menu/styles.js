@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
+import { Link } from 'react-router-dom';
 import Background from '../../assets/background.svg';
 import BannerHamburger from '../../assets/banner-cardapio.svg';
-import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
     width: 100%;
@@ -14,6 +14,7 @@ export const Container = styled.div`
         rgba(255, 255, 255, 0.5)
     ),
     url('${Background}');
+    overflow-y: hidden;
 `;
 
 export const Banner = styled.div`

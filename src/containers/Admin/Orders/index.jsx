@@ -28,11 +28,15 @@ export function Orders() {
 
   function createData(order) {
     return {
+      _id: order._id,
       name: order.user.name,
       orderId: order._id,
       date: order.createdAt,
       status: order.status,
-      products: order.products,
+      products: order.products.map((product) => ({
+        ...product,
+        quantity: Number(product.quantity),
+      })),
     };
   }
 

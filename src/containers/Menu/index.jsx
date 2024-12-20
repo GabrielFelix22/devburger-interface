@@ -1,117 +1,116 @@
 import { useEffect, useState } from 'react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+import { BackButton } from '../../components/BackButton';
+import { CardProduct } from '../../components/CardProduct';
 import { api } from '../../services/api';
 import { formatPrice } from '../../utils/formatPrice';
-import { CardProduct } from '../../components/CardProduct';
-import { BackButton } from '../../components/BackButton';
-import { Footer } from '../../components/Footer';
 import {
-    Container,
-    Banner,
-    CategoryMenu,
-    ProductsContainer,
-    CategoryButton,
+  Banner,
+  CategoryButton,
+  CategoryMenu,
+  Container,
+  ProductsContainer,
 } from './styles';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 export function Menu() {
-    const [categories, setCategories] = useState([]);
-    const [products, setProducts] = useState([]);
-    const [filteredProducts, setFilteredProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const { search } = useLocation();
+  const { search } = useLocation();
 
-    const queryParms = new URLSearchParams(search);
+  const queryParms = new URLSearchParams(search);
 
-    const [activeCategory, setActiveCategory] = useState(() => {
-        const categoryId = +queryParms.get('categoria');
+  const [activeCategory, setActiveCategory] = useState(() => {
+    const categoryId = +queryParms.get('categoria');
 
-        if (categoryId) {
-            return categoryId;
-        }
-        return 0;
-    });
+    if (categoryId) {
+      return categoryId;
+    }
+    return 0;
+  });
 
-    useEffect(() => {
-        async function loadCategories() {
-            const { data } = await api.get('/categories');
+  useEffect(() => {
+    async function loadCategories() {
+      const { data } = await api.get('/categories');
 
-            const newCategories = [{ id: 0, name: 'Todas' }, ...data];
+      const newCategories = [{ id: 0, name: 'Todas' }, ...data];
 
-            setCategories(newCategories);
-        }
+      setCategories(newCategories);
+    }
 
-        async function loadProducts() {
-            const { data } = await api.get('/products');
+    async function loadProducts() {
+      const { data } = await api.get('/products');
 
-            const newProducts = data.map((product) => ({
-                currencyValue: formatPrice(product.price),
-                ...product,
-            }));
+      const newProducts = data.map((product) => ({
+        currencyValue: formatPrice(product.price),
+        ...product,
+      }));
 
-            setProducts(newProducts);
-        }
+      setProducts(newProducts);
+    }
 
-        loadCategories();
-        loadProducts();
+    loadCategories();
+    loadProducts();
+  }, []);
 
-    }, []);
+  useEffect(() => {
+    if (activeCategory === 0) {
+      setFilteredProducts(products);
+    } else {
+      const newFilteredProducts = products.filter(
+        (product) => product.category_id === activeCategory,
+      );
 
-    useEffect(() => {
-        if (activeCategory === 0) {
-            setFilteredProducts(products);
-        } else {
-            const newFilteredProducts = products.filter(
-                product => product.category_id === activeCategory,
-            );
+      setFilteredProducts(newFilteredProducts);
+    }
+  }, [products, activeCategory]);
 
-            setFilteredProducts(newFilteredProducts);
-        }
-    }, [products, activeCategory]);
+  return (
+    <Container>
+      <Banner>
+        <h1>
+          O MELHOR
+          <br />
+          HAMBURGUER
+          <br />
+          ESTÁ AQUI!
+          <span>Esse cardápio está irresistível!</span>
+        </h1>
+      </Banner>
 
-    return (
-        <Container>
-            <Banner>
-                <h1>O MELHOR
-                    <br />
-                    HAMBURGUER
-                    <br />
-                    ESTÁ AQUI!
-                    <span>Esse cardápio está irresistível!</span>
-                </h1>
-            </Banner>
+      <CategoryMenu>
+        {categories.map((category) => (
+          <CategoryButton
+            key={category.id}
+            $isActiveCategory={category.id === activeCategory}
+            onClick={() => {
+              navigate(
+                {
+                  pathname: `/cardapio`,
+                  search: `?categoria=${category.id}`,
+                },
+                {
+                  replace: true, // Para não adicionar a rota anterior na pilha de navegação
+                },
+              );
+              setActiveCategory(category.id);
+            }}
+          >
+            {category.name}
+          </CategoryButton>
+        ))}
+      </CategoryMenu>
 
-            <CategoryMenu>
-                {categories.map(category => (
-                    <CategoryButton
-                        key={category.id}
-                        $isActiveCategory={category.id === activeCategory}
-                        onClick={() => {
-                            navigate(
-                                {
-                                    pathname: `/cardapio`,
-                                    search: `?categoria=${category.id}`,
-                                },
-                                {
-                                    replace: true, // Para não adicionar a rota anterior na pilha de navegação
-                                },
-                            );
-                            setActiveCategory(category.id);
-                        }}
-
-                    >{category.name}</CategoryButton>
-                ))}
-            </CategoryMenu>
-
-            <ProductsContainer>
-                {filteredProducts.map(product => (
-                    <CardProduct product={product} key={product.id} />
-                ))}
-            </ProductsContainer>
-            <BackButton onClick={() => navigate('/')}> &lt; Voltar</BackButton>
-            <Footer />
-        </Container>
-    );
+      <ProductsContainer>
+        {filteredProducts.map((product) => (
+          <CardProduct product={product} key={product.id} />
+        ))}
+      </ProductsContainer>
+      <BackButton onClick={() => navigate('/')}> &lt; Voltar</BackButton>
+    </Container>
+  );
 }
