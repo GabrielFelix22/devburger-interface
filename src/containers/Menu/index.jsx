@@ -110,7 +110,7 @@ export function Menu() {
           <CardProduct product={product} key={product.id} />
         ))}
       </ProductsContainer>
-      <BackButton onClick={() => navigate('/')}> &lt; Voltar</BackButton>
+      <BackButton to="/"> &lt; Voltar</BackButton>
     </Container>
   );
 }
